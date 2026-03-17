@@ -2,166 +2,202 @@
 
 ## 📊 概述
 
-使用 Forex Factory + Coindar API 获取全球重要经济事件日历（传统金融 + 币圈），并自动推送到飞书和 Telegram。
+使用 **Forex Factory**（传统金融）+ **Coindar**（币圈）API 获取全球重要经济事件日历，并自动推送到飞书和 Telegram。
 
-**公开仓库**: https://github.com/PorsenZ/Finance-calendar-bot  
+**公开仓库**: https://github.com/PorsenZ/Finance-calendar-bot
+
+---
+
+## ⚠️ 安全警告
+
+**上传到此仓库只能使用专用脚本**：
+
+```bash
+/home/ubuntu/.openclaw/workspace/skills/fmp-economic-calendar/upload-to-github.sh
+```
+
+**绝对禁止**：
+- ❌ 手动 `git push` 到 Finance-calendar-bot
+- ❌ 复制整个 skills 目录
+- ❌ 修改脚本中的仓库 URL
+- ❌ 上传 upload-to-github.sh 本身（包含敏感信息）
+
+详见：[REPOSITORY_SECURITY_RULES.md](REPOSITORY_SECURITY_RULES.md)
+
+---
+
 **注意**: 此技能为公开项目，不包含任何敏感信息。API Key 请通过 .env 文件配置。
 
 ## 🎯 功能
 
-- **经济日历查询**: 获取 FOMC、CPI、非农、GDP 等重要经济事件
-- **定时推送**: 每日 08:00 和 20:00（北京时间）自动推送
-- **每日简报集成**: 在 ai-daily-briefing 中提醒今日重点事件
-- **多渠推送**: 飞书 (openclaw-news) + Telegram (1909055980)
+- ✅ **Forex Factory 经济日历**: 获取 FOMC、CPI、非农、GDP 等传统金融事件
+- ⏳ **Coindar 币圈事件**: 获取比特币减半、以太坊升级、ICO 等币圈事件（需要 API Key）
+- ✅ **定时推送**: 每日 08:00 和 20:00（北京时间）自动推送
+- ✅ **每日简报集成**: 在 ai-daily-briefing 中提醒今日重点事件
+- ✅ **多渠道推送**: 飞书 (openclaw-news) + Telegram (@TraderAgentsNewsBot)
 
 ## 📁 文件结构
 
 ```
-skills/fmp-economic-calendar/
-├── SKILL.md                    # 技能文档
-├── INTEGRATION_PLAN.md         # 集成计划
-├── README.md                   # 本文件
-└── scripts/
-    ├── fetch_calendar.py       # FMP API 数据获取脚本
-    ├── manual_calendar.py      # 手动输入脚本（临时方案）
-    └── send_push.py            # 推送脚本（待创建）
+fmp-economic-calendar/
+├── scripts/
+│   ├── forex_factory_calendar.py   # Forex Factory 数据获取（✅ 已完成）
+│   ├── coindar_calendar.py         # Coindar 数据获取（⏳ 待创建）
+│   ├── send_push.py                # 推送脚本（✅ 已完成）
+│   └── daily_briefing_integration.py  # ai-daily-briefing 集成（✅ 已完成）
+├── .env.example                    # 配置示例（可公开）
+├── .env                            # 真实配置（禁止公开）
+├── .gitignore                      # Git 忽略规则
+├── requirements.txt                # Python 依赖
+├── README.md                       # 使用说明
+├── SECURITY_ISOLATION.md           # 安全隔离说明
+├── REPOSITORY_SECURITY_RULES.md    # 仓库安全规则
+└── SECURITY_LESSON_LEARNED.md      # 安全教训记录
 ```
 
 ## ⚙️ 配置
 
-### 环境变量
+### 1. 复制配置文件
+
 ```bash
-export FMP_API_KEY="K3qZCeQFuSzvgWCxdMklKAenHqtzcJBZ"
+cd /home/ubuntu/.openclaw/workspace/skills/fmp-economic-calendar/
+cp .env.example .env
 ```
 
-### API 端点
-- **基础 URL**: `https://financialmodelingprep.com/api/v3/`
-- **经济日历**: `/economic_calendar`
-- **参数**: `from`, `to`, `apikey`
+### 2. 编辑 .env 文件
 
-## 🚀 使用方法
-
-### 1. 获取经济日历数据
 ```bash
-# 获取未来 7 天数据
-python3 skills/fmp-economic-calendar/scripts/fetch_calendar.py --days 7
+# .env 文件（禁止上传到 GitHub）
 
-# 获取指定日期范围
-python3 skills/fmp-economic-calendar/scripts/fetch_calendar.py --from-date 2026-03-17 --to-date 2026-03-24
+# Forex Factory API (无需 Key，直接访问)
+FOREX_FACTORY_URL=https://nfs.faireconomy.media/ff_calendar_thisweek.json
 
-# 保存为 JSON
-python3 skills/fmp-economic-calendar/scripts/fetch_calendar.py --days 7 --output shared/02_outbox/economic_calendar.json --format json
+# Coindar API (币圈事件)
+# ⚠️ 审核通过后填写，切勿上传到 GitHub
+COINDAR_API_KEY=your_api_key_here
 
-# 保存为文本简报
-python3 skills/fmp-economic-calendar/scripts/fetch_calendar.py --days 7 --output shared/02_outbox/economic_calendar_briefing.md
+# 推送配置
+FEISHU_CHANNEL=feishu
+FEISHU_TARGET=openclaw-news
+
+TELEGRAM_CHANNEL=telegram
+TELEGRAM_TARGET=TraderAgentsNewsBot
+
+# 时区配置
+TIMEZONE=Asia/Shanghai
 ```
 
-### 2. 手动输入模式（API 升级前）
+## 🚀 快速开始
+
+### 1. 安装依赖
+
 ```bash
-# 生成今日简报
-python3 skills/fmp-economic-calendar/scripts/manual_calendar.py --date 2026-03-17
+pip install -r requirements.txt
+```
+
+### 2. 获取经济日历
+
+```bash
+# 获取传统金融日历
+python3 scripts/forex_factory_calendar.py
 
 # 保存到文件
-python3 skills/fmp-economic-calendar/scripts/manual_calendar.py --output shared/02_outbox/economic_calendar_manual.md
+python3 scripts/forex_factory_calendar.py --output economic_calendar.md
 ```
 
-### 3. 推送到飞书和 Telegram
+### 3. 测试推送
+
 ```bash
-# 待创建 send_push.py 脚本
-python3 skills/fmp-economic-calendar/scripts/send_push.py --input shared/02_outbox/economic_calendar_briefing.md
+# 测试本地模式
+python3 scripts/send_push.py --type morning --channels local --test
 ```
 
 ## 📅 推送时间（北京时间 UTC+8）
 
 | 时间 | 内容 | 渠道 |
 |------|------|------|
-| 08:00 | 今日经济日历重点 + 明日预告 | 飞书 + Telegram |
-| 20:00 | 明日经济日历重点提醒 | 飞书 + Telegram |
+| 08:00 | 早间财经日历（今日重点 + 明日预告） | 飞书 + Telegram |
+| 20:00 | 晚间财经日历（明日重点） | 飞书 + Telegram |
 
-## 🔴 重点关注事件
+## 🔐 安全说明
 
-### 最高优先级
-- FOMC 议息会议（美联储利率决议）
-- CPI 数据（美国消费者物价指数）
-- 非农就业（Non-Farm Payrolls）
-- GDP 数据
-- 央行利率决议（美联储、欧央行、中国人民银行）
+### 敏感信息保护
 
-### 高优先级
-- 零售销售（Retail Sales）
-- ISM/PMI（制造业/服务业 PMI）
-- PPI（生产者物价指数）
-- 消费者信心指数
-- 初请失业金人数
+- ✅ `.env` 文件包含真实 API Key，**绝对不能上传**
+- ✅ `upload-to-github.sh` 包含 SSH 密钥路径，**绝对不能上传**
+- ✅ `.gitignore` 已配置，自动排除敏感文件
+- ✅ 上传脚本会自动检查敏感文件
 
-## ⚠️ 当前状态
+### 仓库隔离
 
-### ✅ 已完成
-- [x] 技能文档创建
-- [x] 数据获取脚本创建
-- [x] 手动输入脚本创建
-- [x] 推送格式模板设计
+| 仓库 | 用途 | 可见性 |
+|------|------|--------|
+| **Finance-calendar-bot** | 公开技能 | Public |
+| **myOpenClaw** | 私有备份 | Private |
+| **ubuntu-openClaw** | workspace | Private |
 
-### ⏳ 进行中
-- [ ] FMP API Key 升级（当前为旧账户，无法访问经济日历 API）
-- [ ] 推送脚本创建
-- [ ] cron 定时任务配置
-- [ ] ai-daily-briefing 集成
+**绝对不能混淆！** 详见：[REPOSITORY_SECURITY_RULES.md](REPOSITORY_SECURITY_RULES.md)
 
-### 📋 下一步
-1. **升级 FMP 账户** - 访问 https://site.financialmodelingprep.com/register 注册新账户
-2. **更新 API Key** - 将新 API Key 更新到环境变量
-3. **测试 API 连接** - 运行 `fetch_calendar.py` 验证
-4. **配置定时任务** - 设置 cron 任务（08:00 + 20:00）
-5. **集成推送流程** - 与 news-aggregator-skill 合并
+## 📊 数据源
 
-## 📝 示例输出
+### 1. Forex Factory（传统金融）
 
+- **URL**: `https://nfs.faireconomy.media/ff_calendar_thisweek.json`
+- **特点**: 
+  - ✅ 官方数据源，准确可靠
+  - ✅ 实时更新
+  - ✅ 免费无需 API Key
+  - ✅ 包含高/中/低重要性标记
+
+- **覆盖事件**:
+  - 🔴 央行利率决议（FOMC、ECB、RBA 等）
+  - 🔴 CPI/PPI 通胀数据
+  - 🔴 非农就业、失业率
+  - 🔴 GDP 数据
+  - 🟡 PMI、零售销售
+  - 🟡 贸易帐、工业产出
+
+### 2. Coindar（币圈事件）⏳
+
+- **URL**: `https://coindar.org/zh-cn/api`
+- **特点**: 
+  - ⏳ 需要 API Key（申请中）
+  - ✅ 加密货币专属事件
+  - ✅ 包含 ICO、空投、减半等
+
+- **覆盖事件**:
+  - 🔴 比特币减半
+  - 🔴 以太坊升级/硬分叉
+  - 🔴 重大 ICO/IDO
+  - 🟡 代币解锁
+  - 🟡 空投活动
+  - 🟡 交易所上线
+
+## 🧪 测试
+
+```bash
+# 测试数据获取
+python3 scripts/forex_factory_calendar.py --output test_calendar.md
+
+# 测试 ai-daily-briefing 集成
+python3 scripts/daily_briefing_integration.py
+
+# 测试推送（本地模式）
+python3 scripts/send_push.py --type morning --channels local --test
 ```
-📊 经济日历简报 | 2026-03-17
-========================================
 
-📌 今天
-------------------------------
+## 🔗 相关链接
 
-🔴 FOMC 议息会议
-⏰ 2026-03-17 22:00 (北京时间)
-🌍 🇺🇸
-📊 重要性：🔴 High
+- **公开仓库**: https://github.com/PorsenZ/Finance-calendar-bot
+- **Forex Factory**: https://www.forexfactory.com/calendar
+- **Coindar**: https://coindar.org/
+- **安全规则**: [REPOSITORY_SECURITY_RULES.md](REPOSITORY_SECURITY_RULES.md)
 
-🔴 美国 CPI (YoY)
-⏰ 2026-03-17 20:30 (北京时间)
-🌍 🇺🇸
-📊 重要性：🔴 High
-实际：3.2 | 预期：3.0 | 前值：3.1
+## 📝 License
 
-========================================
-数据来源：Financial Modeling Prep
-```
+MIT
 
-## 🔧 故障排除
+---
 
-### API Key 无效
-```
-Error Message: Invalid API KEY
-```
-**解决**: 检查环境变量 `FMP_API_KEY` 是否正确设置
-
-### 旧版 API 端点错误
-```
-Error Message: Legacy Endpoint : This endpoint is only available for legacy users
-```
-**解决**: 需要升级 FMP 账户或注册新账户获取新版 API Key
-
-### 时区错误
-**解决**: 脚本自动将 UTC 时间转换为北京时间（UTC+8），检查系统时区设置
-
-## 📚 相关文档
-
-- [集成计划](INTEGRATION_PLAN.md) - 详细集成方案
-- [技能文档](SKILL.md) - API 配置和使用说明
-- [FMP 官方文档](https://site.financialmodelingprep.com/developer/docs)
-
-## 📞 联系
-
-如有问题，请查阅文档或联系管理员。
+**最后更新**: 2026-03-17 17:55 UTC  
+**状态**: ✅ 文档已更新，反映当前 Forex Factory + Coindar 方案

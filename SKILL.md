@@ -1,13 +1,13 @@
-# FMP 经济日历技能
+# 经济日历技能
 
 ## 概述
-使用 Financial Modeling Prep (FMP) API 获取全球重要经济事件日历，包括：
+使用 **Forex Factory**（传统金融）+ **Coindar**（币圈）API 获取全球重要经济事件日历，包括：
 - FOMC 议息会议
-- CPI 通胀数据
+- CPI/PPI 通胀数据
 - 非农就业报告
 - GDP 数据
 - 央行利率决议
-- 其他重要经济数据发布
+- 比特币减半、以太坊升级等币圈事件
 
 ## API 配置
 - **API Provider**: Financial Modeling Prep
