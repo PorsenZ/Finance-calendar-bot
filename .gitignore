@@ -28,8 +28,9 @@ wheels/
 .env.local
 .env.*.local
 
-# 上传脚本 - 包含 SSH 密钥路径和仓库信息，绝对不能公开！
+# 上传脚本和指南 - 包含 SSH 密钥路径、仓库信息、上传逻辑，绝对不能公开！
 upload-to-github.sh
+UPLOAD_GUIDE.md
 
 # IDE
 .vscode/

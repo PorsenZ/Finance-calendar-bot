@@ -12,7 +12,8 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Any
 
 # 配置
-FMP_API_KEY = os.getenv("FMP_API_KEY", "K3qZCeQFuSzvgWCxdMklKAenHqtzcJBZ")
+# 注意：此脚本已废弃，使用 forex_factory_calendar.py 替代
+FMP_API_KEY = os.getenv("FMP_API_KEY", "")
 FMP_BASE_URL = "https://financialmodelingprep.com/api/v3"
 
 # 重要性级别权重
