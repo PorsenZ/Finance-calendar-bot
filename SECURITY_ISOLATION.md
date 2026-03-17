@@ -13,7 +13,7 @@
 - **用途**: 公开分享经济日历技能
 - **可见性**: 公开 (Public)
 - **可以上传**: 
-  - ✅ fmp-economic-calendar 技能代码
+  - ✅ finance-calendar 技能代码
   - ✅ 文档和 README
   - ✅ .env.example (示例配置，不含真实 Key)
 - **禁止上传**:
@@ -68,8 +68,8 @@
 
 ### 准备阶段
 ```bash
-# 1. 确认只包含 fmp-economic-calendar 技能
-cd /home/ubuntu/.openclaw/workspace/skills/fmp-economic-calendar/
+# 1. 确认只包含 finance-calendar 技能
+cd /home/ubuntu/.openclaw/workspace/skills/finance-calendar/
 
 # 2. 检查没有敏感文件
 ls -la .env  # 应该存在，但不会被 git 跟踪
@@ -83,7 +83,7 @@ cd /home/ubuntu/.openclaw/workspace/skills/
 git clone git@github.com:PorsenZ/Finance-calendar-bot.git
 
 # 2. 复制技能文件（不包括 .env）
-cp -r fmp-economic-calendar/* Finance-calendar-bot/
+cp -r finance-calendar/* Finance-calendar-bot/
 
 # 3. 进入公开仓库
 cd Finance-calendar-bot
@@ -118,7 +118,7 @@ git push origin main
 ### 2. 文件上传检查
 ```
 上传前必须检查：
-- [ ] 是否只包含 fmp-economic-calendar 技能？
+- [ ] 是否只包含 finance-calendar 技能？
 - [ ] .env 文件是否已排除？
 - [ ] 是否包含其他 OpenClaw 代码？
 - [ ] 是否包含用户个人信息？
@@ -144,7 +144,7 @@ git push origin main
 1. Finance-calendar-bot (https://github.com/PorsenZ/Finance-calendar-bot) 是公开技能仓库
 2. myOpenClaw (git@github.com:PorsenZ/myOpenClaw.git) 是私有备份仓库，绝对不能公开
 3. 上传公开仓库前必须排除 .env 文件和所有敏感信息
-4. 只允许上传 fmp-economic-calendar 技能，不能上传其他 OpenClaw 代码
+4. 只允许上传 finance-calendar 技能，不能上传其他 OpenClaw 代码
 5. 所有 Agent 必须严格遵守这两个仓库的隔离规则
 ```
 

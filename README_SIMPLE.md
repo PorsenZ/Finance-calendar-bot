@@ -40,7 +40,7 @@ python3 scripts/forex_factory_calendar.py --output economic_calendar.md
 ## 📁 文件说明
 
 ```
-fmp-economic-calendar/
+finance-calendar/
 ├── scripts/
 │   ├── forex_factory_calendar.py  # 主脚本
 │   ├── send_push.py               # 推送脚本

@@ -50,11 +50,11 @@
 
 在每日首次对话时，自动激活经济日历提醒。
 
-**脚本位置**: `skills/fmp-economic-calendar/scripts/daily_briefing_integration.py`
+**脚本位置**: `skills/finance-calendar/scripts/daily_briefing_integration.py`
 
 **测试命令**:
 ```bash
-python3 skills/fmp-economic-calendar/scripts/daily_briefing_integration.py
+python3 skills/finance-calendar/scripts/daily_briefing_integration.py
 ```
 
 **输出示例**:
@@ -76,7 +76,7 @@ python3 skills/fmp-economic-calendar/scripts/daily_briefing_integration.py
 # 获取经济日历提醒
 import subprocess
 result = subprocess.run(
-    ['python3', 'skills/fmp-economic-calendar/scripts/daily_briefing_integration.py'],
+    ['python3', 'skills/finance-calendar/scripts/daily_briefing_integration.py'],
     capture_output=True,
     text=True
 )
@@ -93,7 +93,7 @@ if calendar_reminder:
 ## 📁 脚本清单
 
 ```
-skills/fmp-economic-calendar/scripts/
+skills/finance-calendar/scripts/
 ├── forex_factory_calendar.py      # 主脚本（获取并格式化日历）
 ├── send_push.py                   # 推送脚本（飞书 + Telegram）
 ├── daily_briefing_integration.py  # ai-daily-briefing 集成
@@ -106,13 +106,13 @@ skills/fmp-economic-calendar/scripts/
 
 ### 1. 测试数据获取
 ```bash
-python3 skills/fmp-economic-calendar/scripts/forex_factory_calendar.py \
+python3 skills/finance-calendar/scripts/forex_factory_calendar.py \
   --output shared/02_outbox/economic_calendar_test.md
 ```
 
 ### 2. 测试推送（本地模式）
 ```bash
-python3 skills/fmp-economic-calendar/scripts/send_push.py \
+python3 skills/finance-calendar/scripts/send_push.py \
   --type morning \
   --channels local \
   --test
@@ -120,7 +120,7 @@ python3 skills/fmp-economic-calendar/scripts/send_push.py \
 
 ### 3. 测试 ai-daily-briefing
 ```bash
-python3 skills/fmp-economic-calendar/scripts/daily_briefing_integration.py
+python3 skills/finance-calendar/scripts/daily_briefing_integration.py
 ```
 
 ### 4. 手动触发 cron
@@ -174,7 +174,7 @@ openclaw cron run a77dbc45-3fa3-485c-9305-736ae36b9f10
 ## 📞 相关资源
 
 - **Forex Factory**: https://www.forexfactory.com/calendar
-- **技能文档**: `skills/fmp-economic-calendar/README.md`
+- **技能文档**: `skills/finance-calendar/README.md`
 - **输出目录**: `shared/02_outbox/economic_calendar_*.md`
 
 ---

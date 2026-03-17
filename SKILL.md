@@ -1,5 +1,5 @@
 ---
-name: fmp-economic-calendar
+name: finance-calendar
 description: "Economic calendar skill that fetches real-time financial events from Forex Factory (traditional finance) and Coindar (crypto). Automatically pushes daily briefings to Feishu and Telegram at 08:00 and 20:00 Beijing time. Integrates with ai-daily-briefing for morning reminders."
 ---
 
@@ -126,7 +126,7 @@ python3 scripts/daily_briefing_integration.py
 ### 1. Copy config template
 
 ```bash
-cd /home/ubuntu/.openclaw/workspace/skills/fmp-economic-calendar/
+cd /home/ubuntu/.openclaw/workspace/skills/finance-calendar/
 cp .env.example .env
 ```
 
@@ -190,7 +190,7 @@ python3 scripts/send_push.py --type morning --channels local --test
 ## 📁 File Structure
 
 ```
-fmp-economic-calendar/
+finance-calendar/
 ├── scripts/
 │   ├── forex_factory_calendar.py   # Main script (Forex Factory)
 │   ├── coindar_calendar.py         # Coindar integration

@@ -13,7 +13,7 @@
 **上传到此仓库只能使用专用脚本**：
 
 ```bash
-/home/ubuntu/.openclaw/workspace/skills/fmp-economic-calendar/upload-to-github.sh
+/home/ubuntu/.openclaw/workspace/skills/finance-calendar/upload-to-github.sh
 ```
 
 **绝对禁止**：
@@ -39,7 +39,7 @@
 ## 📁 文件结构
 
 ```
-fmp-economic-calendar/
+finance-calendar/
 ├── scripts/
 │   ├── forex_factory_calendar.py   # Forex Factory 数据获取（✅ 已完成）
 │   ├── coindar_calendar.py         # Coindar 数据获取（⏳ 待创建）
@@ -60,7 +60,7 @@ fmp-economic-calendar/
 ### 1. 复制配置文件
 
 ```bash
-cd /home/ubuntu/.openclaw/workspace/skills/fmp-economic-calendar/
+cd /home/ubuntu/.openclaw/workspace/skills/finance-calendar/
 cp .env.example .env
 ```
 

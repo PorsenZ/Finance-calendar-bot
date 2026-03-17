@@ -9,15 +9,15 @@
 
 ### 1. Finance-calendar-bot (公开技能仓库)
 - **URL**: `https://github.com/PorsenZ/Finance-calendar-bot`
-- **用途**: 公开分享 fmp-economic-calendar 技能
+- **用途**: 公开分享 finance-calendar 技能
 - **可见性**: Public (公开)
 - **上传方式**: **只能使用专用脚本**
   ```bash
-  /home/ubuntu/.openclaw/workspace/skills/fmp-economic-calendar/upload-to-github.sh
+  /home/ubuntu/.openclaw/workspace/skills/finance-calendar/upload-to-github.sh
   ```
 - **SSH 密钥**: `~/.ssh/finance_calendar_key`
 - **可以包含**:
-  - ✅ fmp-economic-calendar 技能代码
+  - ✅ finance-calendar 技能代码
   - ✅ 文档和 README
   - ✅ .env.example (示例配置，不含真实 Key)
 - **绝对不能包含**:
@@ -54,7 +54,7 @@
 
 **上传脚本位置**（本地，不公开）：
 ```bash
-/home/ubuntu/.openclaw/workspace/skills/fmp-economic-calendar/upload-to-github.sh
+/home/ubuntu/.openclaw/workspace/skills/finance-calendar/upload-to-github.sh
 ```
 
 **重要**：
@@ -67,7 +67,7 @@
 2. ✅ 排除 .env 文件
 3. ✅ 排除 upload-to-github.sh 本身
 4. ✅ 使用专用 SSH 密钥
-5. ✅ 只上传 fmp-economic-calendar 技能
+5. ✅ 只上传 finance-calendar 技能
 6. ✅ 需要两次确认
 
 ### ❌ 绝对禁止的操作
@@ -94,7 +94,7 @@ rsync -av /home/ubuntu/.openclaw/workspace/ Finance-calendar-bot/
 每次上传前必须确认：
 
 - [ ] 使用的是专用上传脚本
-- [ ] 脚本路径正确：`fmp-economic-calendar/upload-to-github.sh`
+- [ ] 脚本路径正确：`finance-calendar/upload-to-github.sh`
 - [ ] .env 文件存在且未被 git 跟踪
 - [ ] .gitignore 文件存在
 - [ ] 没有手动修改其他文件
@@ -133,7 +133,7 @@ rsync -av /home/ubuntu/.openclaw/workspace/ Finance-calendar-bot/
    - 绝对不能混淆！
 
 2. **文件上传检查**:
-   - 是否只包含 fmp-economic-calendar 技能？
+   - 是否只包含 finance-calendar 技能？
    - .env 文件是否已排除？
    - 是否包含其他 OpenClaw 代码？
 
@@ -158,7 +158,7 @@ rsync -av /home/ubuntu/.openclaw/workspace/ Finance-calendar-bot/
 
 | 仓库 | URL | 状态 | 说明 |
 |------|-----|------|------|
-| **Finance-calendar-bot** | `https://github.com/PorsenZ/Finance-calendar-bot` | ✅ 已公开 | 只包含 fmp-economic-calendar 技能 |
+| **Finance-calendar-bot** | `https://github.com/PorsenZ/Finance-calendar-bot` | ✅ 已公开 | 只包含 finance-calendar 技能 |
 | **myOpenClaw** | `git@github.com:PorsenZ/myOpenClaw.git` | ✅ 私有 | 未触碰，完全独立 |
 | **ubuntu-openClaw** | `git@github-ubuntu-openclaw:PorsenZ/ubuntu-openClaw.git` | ✅ 私有 | workspace 仓库，未触碰 |
 
@@ -178,7 +178,7 @@ rsync -av /home/ubuntu/.openclaw/workspace/ Finance-calendar-bot/
 1. Finance-calendar-bot 是公开技能仓库，只能用专用脚本上传
 2. myOpenClaw 是私有备份仓库，绝对不能公开
 3. ubuntu-openClaw 是 workspace 仓库，独立管理
-4. 上传脚本：fmp-economic-calendar/upload-to-github.sh
+4. 上传脚本：finance-calendar/upload-to-github.sh
 5. SSH 密钥：~/.ssh/finance_calendar_key（专用）
 6. 绝对不能混淆三个仓库！
 ```

@@ -3,7 +3,7 @@
 ## ⚡ 快速上传（唯一正确方式）
 
 ```bash
-/home/ubuntu/.openclaw/workspace/skills/fmp-economic-calendar/upload-to-github.sh
+/home/ubuntu/.openclaw/workspace/skills/finance-calendar/upload-to-github.sh
 ```
 
 **就这么简单！** 脚本会自动：
@@ -51,7 +51,7 @@ cp -r ../skills/* Finance-calendar-bot/  # 禁止！
 
 1. **修改技能文件**
    ```bash
-   cd /home/ubuntu/.openclaw/workspace/skills/fmp-economic-calendar/
+   cd /home/ubuntu/.openclaw/workspace/skills/finance-calendar/
    # 修改你的文件...
    ```
 
