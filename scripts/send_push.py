@@ -18,12 +18,12 @@ from typing import List, Dict, Any
 FOREX_FACTORY_URL = "https://nfs.faireconomy.media/ff_calendar_thisweek.json"
 OUTPUT_DIR = "/home/ubuntu/.openclaw/workspace/shared/02_outbox"
 
-# 推送配置
+# 推送配置（示例，实际使用从 .env 读取）
 FEISHU_CHANNEL = "feishu"
-FEISHU_TARGET = "openclaw-news"  # 飞书群聊 ID
+FEISHU_TARGET = os.getenv("FEISHU_TARGET", "your_feishu_target")
 
 TELEGRAM_CHANNEL = "telegram"
-TELEGRAM_TARGET = "TraderAgentsNewsBot"  # Telegram Bot
+TELEGRAM_TARGET = os.getenv("TELEGRAM_TARGET", "your_telegram_target")
 
 # 重要性过滤
 IMPACT_FILTER = {"High", "Medium"}

@@ -78,10 +78,10 @@ COINDAR_API_KEY=your_api_key_here
 
 # 推送配置
 FEISHU_CHANNEL=feishu
-FEISHU_TARGET=openclaw-news
+FEISHU_TARGET=your_feishu_target
 
 TELEGRAM_CHANNEL=telegram
-TELEGRAM_TARGET=TraderAgentsNewsBot
+TELEGRAM_TARGET=your_telegram_target
 
 # 时区配置
 TIMEZONE=Asia/Shanghai

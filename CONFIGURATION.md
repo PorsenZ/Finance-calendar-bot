@@ -34,12 +34,12 @@
 
 ### 飞书
 - **渠道**: `feishu`
-- **Target**: `openclaw-news`
+- **Target**: 在 `openclaw.json` 中配置的飞书渠道
 - **配置位置**: `openclaw.json` → `channels.feishu.accounts`
 
 ### Telegram
 - **渠道**: `telegram`
-- **Target**: `TraderAgentsNewsBot`
+- **Target**: 在 `openclaw.json` 中配置的 Telegram 渠道
 - **配置位置**: `openclaw.json` → `channels.telegram.accounts`
 
 ---

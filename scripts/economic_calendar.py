@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Any
 
 # 配置
-ALPHA_VANTAGE_KEY = os.getenv("ALPHA_VANTAGE_KEY", "NR8D4MNG1AZGT1Q8")
+ALPHA_VANTAGE_KEY = os.getenv("ALPHA_VANTAGE_KEY", "")
 ALPHA_VANTAGE_URL = "https://www.alphavantage.co/query"
 
 # 输出目录
