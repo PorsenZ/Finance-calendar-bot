@@ -23,7 +23,7 @@ wheels/
 .installed.cfg
 *.egg
 
-# 敏感配置文件 - 包含 API Key 等敏感信息
+# 敏感配置文件 - 包含 API Key、推送目标等敏感信息
 .env
 .env.local
 .env.*.local
@@ -31,6 +31,13 @@ wheels/
 # 上传脚本和指南 - 包含 SSH 密钥路径、仓库信息、上传逻辑，绝对不能公开！
 upload-to-github.sh
 UPLOAD_GUIDE.md
+
+# 其他敏感文件
+*.key
+*.pem
+*.p12
+secrets.json
+config.local.py
 
 # IDE
 .vscode/
