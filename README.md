@@ -34,7 +34,7 @@
 - ⏳ **Coindar 币圈事件**: 获取比特币减半、以太坊升级、ICO 等币圈事件（需要 API Key）
 - ✅ **定时推送**: 每日 08:00 和 20:00（北京时间）自动推送
 - ✅ **每日简报集成**: 在 ai-daily-briefing 中提醒今日重点事件
-- ✅ **多渠道推送**: 飞书 (openclaw-news) + Telegram (@TraderAgentsNewsBot)
+- ✅ **多渠道推送**: 飞书 + Telegram（在你的 `openclaw.json` 中配置）
 
 ## 📁 文件结构
 

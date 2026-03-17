@@ -159,7 +159,7 @@ openclaw cron run a77dbc45-3fa3-485c-9305-736ae36b9f10
 
 ### 2. 推送失败
 ```
-❌ 飞书发送失败：Unknown target "openclaw-news"
+❌ 飞书发送失败：Unknown target（需要配置正确的 target）
 ```
 **解决**: 检查 openclaw.json 中飞书配置，确认 target 正确
 
