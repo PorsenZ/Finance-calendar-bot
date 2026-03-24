@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 """
 ai-daily-briefing 经济日历集成
-在每日首次对话时，自动获取并展示今日重要经济事件
+在每日首次对话时，自动获取并展示今日重要经济事件（传统金融 + 加密货币）
 """
 
 import json
 import requests
+import os
+import subprocess
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
 
 # 配置
 FOREX_FACTORY_URL = "https://nfs.faireconomy.media/ff_calendar_thisweek.json"
+COINMARKETCAL_API_KEY = os.getenv("COINMARKETCAL_API_KEY", "")
 
 # 重要性过滤（只关注高重要性）
 IMPACT_FILTER = {"High"}
@@ -118,24 +121,60 @@ def format_briefing_message(events: List[Dict]) -> str:
     return "\n".join(lines)
 
 
+def get_crypto_events() -> List[Dict]:
+    """获取加密货币事件（调用 CoinMarketCal 脚本）"""
+    if not COINMARKETCAL_API_KEY:
+        return []
+    
+    try:
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        script_path = os.path.join(script_dir, "coinmarketcal_calendar.py")
+        
+        # 运行脚本获取今日事件
+        result = subprocess.run(
+            ["python3", script_path, "--days", "1", "--high-only", "--format", "json"],
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+        
+        if result.returncode == 0 and result.stdout.strip():
+            events = json.loads(result.stdout)
+            return events
+        return []
+    except Exception as e:
+        print(f"⚠️ 获取加密货币事件失败：{e}")
+        return []
+
 def main():
     """主函数"""
-    # 获取数据
+    print("=" * 60)
+    print("📊 每日经济日历提醒（传统金融 + 加密货币）")
+    print("=" * 60)
+    print("")
+    
+    # 获取传统金融数据
+    print("📈 获取传统金融事件...")
     raw_events = fetch_calendar()
-    if not raw_events:
-        print("⚠️ 无法获取经济日历数据")
-        return
+    traditional_events = filter_today_events(raw_events) if raw_events else []
+    print(f"✅ 获取到 {len(traditional_events)} 个传统金融事件")
     
-    # 筛选今日事件
-    today_events = filter_today_events(raw_events)
+    # 获取加密货币数据
+    print("🪙 获取加密货币事件...")
+    crypto_events = get_crypto_events()
+    print(f"✅ 获取到 {len(crypto_events)} 个加密货币事件")
     
-    if not today_events:
-        print("⚠️ 今日无高重要性经济事件")
-        return
+    print("")
     
     # 格式化消息
-    message = format_briefing_message(today_events)
-    print(message)
+    if traditional_events or crypto_events:
+        message = format_briefing_message(traditional_events + crypto_events)
+        print(message)
+    else:
+        print("⚠️ 今日无高重要性经济事件")
+    
+    print("")
+    print("=" * 60)
 
 
 if __name__ == "__main__":

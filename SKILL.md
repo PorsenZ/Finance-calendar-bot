@@ -205,9 +205,29 @@ finance-calendar/
 
 ---
 
+## 🔗 Repository Management
+
+### Public Repository (Skill Sharing)
+- **URL**: https://github.com/PorsenZ/Finance-calendar-bot
+- **Upload Method**: ONLY use `upload-to-github.sh` script
+- **Purpose**: Share finance-calendar skill publicly
+- **Visibility**: Public
+
+### Private Repository (Workspace Backup)
+- **URL**: git@github.com:PorsenZ/myOpenClaw.git
+- **Management**: Use Git directly
+- **Purpose**: Private backup of complete OpenClaw configuration
+- **Visibility**: Private
+
+### ⚠️ Critical Rules
+- `upload-to-github.sh` → ONLY for Finance-calendar-bot (public)
+- Git config → ONLY for myOpenClaw (private)
+- NEVER mix these two systems!
+
+---
+
 ## 🔗 Related Links
 
-- **Public Repo**: https://github.com/PorsenZ/Finance-calendar-bot
 - **Forex Factory**: https://www.forexfactory.com/calendar
 - **Coindar**: https://coindar.org/
 - **Security Rules**: [REPOSITORY_SECURITY_RULES.md](REPOSITORY_SECURITY_RULES.md)

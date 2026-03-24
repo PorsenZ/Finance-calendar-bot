@@ -98,25 +98,49 @@ def filter_events(events: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 def parse_datetime(date_str: str) -> datetime:
     """
-    解析 ISO 8601 日期字符串
+    解析 Forex Factory 日期字符串（带时区）
+    格式："2026-03-18T08:30:00-04:00" 或 "2026-03-18T08:30-04:00"
     
     Args:
-        date_str: 日期字符串（如 "2026-03-16T08:30:00-04:00" 或 "2026-03-16T08:30"）
+        date_str: 日期字符串
     
     Returns:
-        datetime 对象
+        datetime 对象（UTC 时间）
     """
     try:
-        # 处理没有秒数的情况
-        if len(date_str) == 16:  # "2026-03-16T08:30"
-            return datetime.strptime(date_str, "%Y-%m-%dT%H:%M")
+        from datetime import timedelta
         
-        # 处理时区偏移
-        if '+' in date_str or (date_str.count('-') > 2):
-            # 移除时区信息，简单处理为 UTC
-            date_str = date_str.split('-')[0] + '-' + date_str.split('-')[1] + '-' + date_str.split('-')[2][:8]
+        # 处理时区格式 "2026-03-18T08:30:00-04:00"
+        if 'T' in date_str and ('+' in date_str or date_str.count('-') > 2):
+            # 有秒数：2026-03-18T08:30:00-04:00
+            if len(date_str) >= 25:
+                dt_part = date_str[:19]  # "2026-03-18T08:30:00"
+                tz_part = date_str[19:]  # "-04:00"
+                utc_dt = datetime.strptime(dt_part, "%Y-%m-%dT%H:%M:%S")
+                # 解析时区偏移并转换为 UTC
+                tz_sign = 1 if tz_part[0] == '+' else -1
+                tz_hours = int(tz_part[1:3])
+                tz_mins = int(tz_part[4:6])
+                utc_dt = utc_dt - timedelta(hours=tz_sign*tz_hours, minutes=tz_sign*tz_mins)
+                return utc_dt
+            # 没有秒数：2026-03-18T08:30-04:00
+            elif len(date_str) >= 22:
+                dt_part = date_str[:16]  # "2026-03-18T08:30"
+                tz_part = date_str[16:]  # "-04:00"
+                utc_dt = datetime.strptime(dt_part, "%Y-%m-%dT%H:%M")
+                tz_sign = 1 if tz_part[0] == '+' else -1
+                tz_hours = int(tz_part[1:3])
+                tz_mins = int(tz_part[4:6])
+                utc_dt = utc_dt - timedelta(hours=tz_sign*tz_hours, minutes=tz_sign*tz_mins)
+                return utc_dt
+        
+        # 没有时区信息，直接解析
+        if len(date_str) >= 19:
             return datetime.strptime(date_str[:19], "%Y-%m-%dT%H:%M:%S")
-        return datetime.strptime(date_str[:19], "%Y-%m-%dT%H:%M:%S")
+        elif len(date_str) >= 16:
+            return datetime.strptime(date_str[:16], "%Y-%m-%dT%H:%M")
+        
+        return datetime.now()
     except Exception as e:
         print(f"⚠️ 日期解析失败：{date_str}, 错误：{e}")
         return datetime.now()

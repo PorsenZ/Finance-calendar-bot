@@ -98,7 +98,8 @@ def format_push_message(events: List[Dict], push_type: str = "morning") -> str:
         events: 事件列表
         push_type: morning(早间) 或 evening(晚间)
     """
-    now = datetime.now()
+    # 使用北京时间（UTC+8）
+    now = datetime.now() + timedelta(hours=8)
     today = now.strftime("%Y-%m-%d")
     tomorrow = (now + timedelta(days=1)).strftime("%Y-%m-%d")
     
